@@ -48,6 +48,7 @@ ullong tokenize__to__token_train(buffer_train* token_train, char* string, ullong
                 return LOWLY_ERROR;
         }
 
+
         void* token = malloc(token_size);
 
         if (token == NULL)
@@ -58,6 +59,7 @@ ullong tokenize__to__token_train(buffer_train* token_train, char* string, ullong
         const ullong string_length = get_string_length(string);
 
         *token_count_ptr = 0;
+
 
         for (ullong string_index = 0; string_index < string_length;)
         {

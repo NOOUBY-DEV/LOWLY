@@ -9,22 +9,21 @@ int main()
 {
         buffer_train test_train;
 
-        init__buffer_train(&test_train, 128);
+        init__buffer_train(&test_train, 64);
 
         const char* append_string =
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
-                "HELLO WORLD I AM VERITY SON IM CRINE \n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
+                "HELLO WORLD I AM VERITY SON IM CRINE |\n"
         ;
 
         ullong string_size = strlen(append_string) + 1;
@@ -38,6 +37,8 @@ int main()
         printf("%s\n", final_string);
 
         free__buffer_train(&test_train);
+
+        free(final_string);
 
         return 0;
 }

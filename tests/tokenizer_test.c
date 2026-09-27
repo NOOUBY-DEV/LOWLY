@@ -73,6 +73,7 @@ int main()
         free__buffer_train(&token_train);
 }
 
+
 ullong chopper_callback(void* raw_token, char* string, ullong* string_index_ptr)
 {
         test_token* token = raw_token;
@@ -109,15 +110,15 @@ ullong chopper_callback(void* raw_token, char* string, ullong* string_index_ptr)
                         match_len++;
                 }
 
-                        if (matched)
-                        {
-                                token->type = candidate->token_type;
-                                token->length = match_len;
+                if (matched)
+                {
+                        token->type = candidate->token_type;
+                        token->length = match_len;
 
-                                *string_index_ptr = string_index + match_len;
+                        *string_index_ptr = string_index + match_len;
 
-                                return 0;
-                        }
+                        return 0;
+                }
         }
 
         return 1;

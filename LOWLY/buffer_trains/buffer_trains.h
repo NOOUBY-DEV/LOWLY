@@ -39,13 +39,13 @@ buffer_train;
 
 void print_buffer_train(buffer_train* train);
 
-ullong init_buffer_train(buffer_train* train, const ullong buffer_car_size);
+ullong init__buffer_train(buffer_train* train, const ullong buffer_car_size);
 
-ullong free_buffer_train(buffer_train* train);
+ullong free__buffer_train(buffer_train* train);
 
-ullong buffer_train_append(buffer_train* train, const void* append_buffer, const ullong append_size);
+ullong buffer_train__append_buffer(buffer_train* train, const void* append_buffer, const ullong append_size);
 
-ullong buffer_train_link_new_car(buffer_train* train);
+ullong buffer_train__add_car(buffer_train* train);
 
 void* finalize__buffer_train(buffer_train* train);
 

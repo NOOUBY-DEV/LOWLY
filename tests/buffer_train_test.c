@@ -9,7 +9,7 @@ int main()
 {
         buffer_train test_train;
 
-        init_buffer_train(&test_train, 128);
+        init__buffer_train(&test_train, 128);
 
         const char* append_string =
                 "HELLO WORLD I AM VERITY SON IM CRINE \n"
@@ -31,13 +31,13 @@ int main()
 
         printf("string_size : %llu\n", string_size);
 
-        buffer_train_append(&test_train, append_string, string_size);
+        buffer_train__append_buffer(&test_train, append_string, string_size);
 
         char* final_string = finalize__buffer_train(&test_train);
 
         printf("%s\n", final_string);
 
-        free_buffer_train(&test_train);
+        free__buffer_train(&test_train);
 
         return 0;
 }

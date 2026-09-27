@@ -62,7 +62,7 @@ int main()
 
         ullong token_count;
 
-        char* text = "eenie  meenie miney mo  eenie miney mo meenie";
+        char* text = "eenie  meenie   miney mo  eenie miney mo meenie     eenie  meenie miney mo   eenie    miney mo meenie";
 
         tokenize__to__token_train(&token_train, text, chopper_callback, &token_count);
 
@@ -70,7 +70,7 @@ int main()
 
         print_token_types(final_tokens, token_count);
 
-        free_buffer_train(&token_train);
+        free__buffer_train(&token_train);
 }
 
 ullong chopper_callback(void* raw_token, char* string, ullong* string_index_ptr)

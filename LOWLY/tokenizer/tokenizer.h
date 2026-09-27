@@ -7,7 +7,7 @@
 
 ullong get_string_length(char* string);
 
-ullong init__token_train(buffer_train* token_train, ullong token_count, ullong token_size);
+ullong init__token_train(buffer_train* token_train, const ullong token_count, const ullong token_size);
 
 ullong tokenize__to__token_train(buffer_train* token_train, char* string, ullong(*chopper_callback)(void*, char*, ullong*), ullong* token_count_ptr);
 

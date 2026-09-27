@@ -5,9 +5,14 @@
 #define CAST_TO_UCHAR(POINTER) ((uchar*)POINTER)
 
 
-ullong init_buffer_train(buffer_train* train, const ullong buffer_car_size)
+ullong init__buffer_train(buffer_train* train, const ullong buffer_car_size)
 {
         if (train == NULL)
+        {
+                return LOWLY_ERROR;
+        }
+
+        if (buffer_car_size == 0)
         {
                 return LOWLY_ERROR;
         }
@@ -44,7 +49,7 @@ ullong init_buffer_train(buffer_train* train, const ullong buffer_car_size)
 }
 
 
-ullong free_buffer_train(buffer_train* train)
+ullong free__buffer_train(buffer_train* train)
 {
         if (train == NULL)
         {
@@ -67,7 +72,7 @@ ullong free_buffer_train(buffer_train* train)
 }
 
 
-ullong buffer_train_link_new_car(buffer_train* train)
+ullong buffer_train__add_car(buffer_train* train)
 {
         train->current_car->is_free = FALSE;
 
@@ -101,7 +106,7 @@ ullong buffer_train_link_new_car(buffer_train* train)
 }
 
 
-ullong buffer_train_append(buffer_train* train, const void* append_buffer, const ullong append_size)
+ullong buffer_train__append_buffer(buffer_train* train, const void* append_buffer, const ullong append_size)
 {
         if (append_buffer == NULL || append_size == 0)
         {
@@ -112,7 +117,7 @@ ullong buffer_train_append(buffer_train* train, const void* append_buffer, const
         {
                 if (train->current_car->free_index >= train->car_buffer_size)
                 {
-                        if (buffer_train_link_new_car(train) == LOWLY_ERROR)
+                        if (buffer_train__add_car(train) == LOWLY_ERROR)
                         {
                                 return LOWLY_ERROR;
                         }
@@ -145,7 +150,9 @@ void* finalize__buffer_train(buffer_train* train)
 
         // [allocate final buffer and set]
         {
-                buffer = malloc(train->car_count * train->car_buffer_size);
+                const ullong total_length = (train->car_count - 1) * train->car_buffer_size + train->current_car->free_index;
+
+                buffer = malloc(total_length);
 
                 if (buffer == NULL)
                 {
@@ -157,7 +164,7 @@ void* finalize__buffer_train(buffer_train* train)
 
         for (ullong buffer_index = 0; current_car; )
         {
-                for (ullong car_buffer_index = 0; car_buffer_index < train->car_buffer_size; car_buffer_index ++, buffer_index ++)
+                for (ullong car_buffer_index = 0; car_buffer_index < current_car->free_index; car_buffer_index ++, buffer_index ++)
                 {
                         buffer[buffer_index] = current_car->buffer[car_buffer_index];
                 }

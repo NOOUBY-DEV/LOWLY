@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-#define CAST_TO_UCHAR(POINTER) ((uchar*)POINTER)
+#define cast_to_uchar(POINTER) ((uchar*)POINTER)
 
 
 ullong init__buffer_train(buffer_train* train, const ullong buffer_car_size)
@@ -21,19 +21,14 @@ ullong init__buffer_train(buffer_train* train, const ullong buffer_car_size)
 
         // [create head car and link]
         {
-                buffer_car* head_car = malloc(sizeof(buffer_car));
+                buffer_car* head_car = malloc(sizeof(buffer_car) + buffer_car_size);
 
                 if (head_car == NULL)
                 {
                         return LOWLY_ERROR;
                 }
 
-                head_car->buffer = malloc(buffer_car_size);
-
-                if (head_car->buffer == NULL)
-                {
-                        return LOWLY_ERROR;
-                }
+                head_car->buffer = cast_to_uchar(head_car) + sizeof(buffer_car);
 
                 head_car->prev = NULL;
                 head_car->next = NULL;
@@ -62,7 +57,6 @@ ullong free__buffer_train(buffer_train* train)
         {
                 buffer_car* next_car = current_car->next;
 
-                free(current_car->buffer);
                 free(current_car);
 
                 current_car = next_car;
@@ -78,19 +72,14 @@ ullong buffer_train__add_car(buffer_train* train)
 
         // [create new car]
         {
-                buffer_car* new_car = malloc(sizeof(buffer_car));
+                buffer_car* new_car = malloc(sizeof(buffer_car) + train->car_buffer_size);
 
                 if (new_car == NULL)
                 {
                         return LOWLY_ERROR;
                 }
 
-                new_car->buffer = malloc(train->car_buffer_size);
-
-                if (new_car->buffer == NULL)
-                {
-                        return LOWLY_ERROR;
-                }
+                new_car->buffer = cast_to_uchar(new_car) + sizeof(buffer_car);
 
                 new_car->is_free = TRUE;
                 new_car->free_index = 0;
@@ -125,7 +114,7 @@ ullong buffer_train__append_buffer(buffer_train* train, const void* append_buffe
 
                 buffer_car* current_car = train->current_car;
 
-                current_car->buffer[current_car->free_index] = CAST_TO_UCHAR(append_buffer)[buffer_index];
+                current_car->buffer[current_car->free_index] = cast_to_uchar(append_buffer)[buffer_index];
 
                 current_car->free_index ++;
         }
